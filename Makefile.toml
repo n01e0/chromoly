@@ -1,0 +1,22 @@
+[tasks.debug_build]
+description = "debug build and setcap binary"
+command = "cargo"
+args = ["build"]
+
+[tasks.build]
+description = "build debug binary"
+command = "sudo"
+args = ["setcap", "cap_sys_admin+ep", "./target/debug/chromoly"]
+dependencies = ["debug_build"]
+
+[tasks.release]
+description = "release build and setcap binary"
+command = "sudo"
+args = ["setcap", "cap_sys_admin+ep", "./target/release/chromoly"]
+dependencies = ["release_build"]
+
+
+[tasks.release_build]
+description = "build release binary"
+command = "cargo"
+args = ["build", "--release"]
